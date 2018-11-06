@@ -1,5 +1,7 @@
 {
   "name": "ionic-takephoto",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "angular"
 }

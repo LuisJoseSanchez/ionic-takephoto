@@ -1,12 +1,17 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Ionic Blank
+      Cámara
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs">docs</a> will be your guide.</p>
+  <img [src]="image" />
+  <p>Pulsa el botón para tomar una foto.</p>
+  <ion-button
+    expand="full"
+    (click)="takePicture">
+    Hacer foto
+  </ion-button>
 </ion-content>
