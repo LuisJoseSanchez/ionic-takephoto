@@ -1,7 +1,8 @@
-import { Component, NgZone } from '@angular/core';
+import { Component } from '@angular/core';
 import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
-import { NavController, NavParams } from '@ionic/angular';
 import { Plugins, CameraResultType, CameraSource } from '@capacitor/core';
+
+const { Camera } = Plugins;
 
 @Component({
   selector: 'app-home',
@@ -10,26 +11,29 @@ import { Plugins, CameraResultType, CameraSource } from '@capacitor/core';
 })
 export class HomePage {
   image: SafeResourceUrl;
+  photo;
 
   constructor(
-    public navCtrl: NavController,
-    public navParams: NavParams,
-    private zone: NgZone,
     private sanitizer: DomSanitizer) {
   }
 
-  async takePicture() {
-    const { Camera } = Plugins;
+  takePicture() {
 
-    const image = await Camera.getPhoto({
+    Camera.getPhoto({
       quality: 90,
       allowEditing: true,
       resultType: CameraResultType.Base64,
       source: CameraSource.Camera
-    });
+    }).then(
+      (data) => {
+      this.photo = data;
+      }, (err) => {
+        this.photo = 'Could not take photo';
+      }
+      );
 
     // Example of using the Base64 return type. It's recommended to use CameraResultType.Uri
     // instead for performance reasons when showing large, or a large amount of images.
-    this.image = this.sanitizer.bypassSecurityTrustResourceUrl(image && (image.base64Data));
+    // this.image = this.sanitizer.bypassSecurityTrustResourceUrl(image && (image.base64Data));
   }
 }

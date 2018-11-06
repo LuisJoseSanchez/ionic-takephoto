@@ -7,11 +7,14 @@
 </ion-header>
 
 <ion-content padding>
-  <img [src]="image" />
+  <img [src]="image">
   <p>Pulsa el botón para tomar una foto.</p>
   <ion-button
     expand="full"
-    (click)="takePicture">
+    (click)="takePicture()">
     Hacer foto
   </ion-button>
+  <p>
+    {{ photo | json }}
+  </p>
 </ion-content>
