@@ -12,6 +12,7 @@ const { Camera } = Plugins;
 export class HomePage {
   image: SafeResourceUrl;
   photo;
+  message = 'hola';
 
   constructor(
     private sanitizer: DomSanitizer) {
@@ -19,18 +20,19 @@ export class HomePage {
 
   takePicture() {
 
+    this.message = 'Tomando foto...';
     Camera.getPhoto({
       quality: 90,
       allowEditing: true,
       resultType: CameraResultType.Base64,
       source: CameraSource.Camera
     }).then(
-      (data) => {
-      this.photo = data;
-      }, (err) => {
+      data => this.photo = data,
+      err => {
         this.photo = 'Could not take photo';
+        this.message = err;
       }
-      );
+    );
 
     // Example of using the Base64 return type. It's recommended to use CameraResultType.Uri
     // instead for performance reasons when showing large, or a large amount of images.
